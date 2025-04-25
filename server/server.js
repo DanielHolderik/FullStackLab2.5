@@ -48,7 +48,16 @@ server.get('/api/employes', async (req, res) => {
         .find()
         .populate('employeId', 'name')
         .populate('projectId', 'name')
-        res.status(200).json(allProjectsAssigments);
+
+        const fetchedData = allProjectsAssigments.map((assigment) => { //logic toi diferentiate empname and projname
+          return {
+            employeName: assigment.employeId.name,
+            projectName: assigment.projectId.name,
+            startDate: assigment.startDate,
+          };
+        }
+        );
+        res.status(200).json(fetchedData);
       }
       catch (err){
         res.status(500).json({message: "error retrieving Projects Assigments (GET)" + err.message});
