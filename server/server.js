@@ -44,7 +44,10 @@ server.get('/api/employes', async (req, res) => {
     
     server.get('/api/projectassigments', async (req, res) => {
       try{
-        const allProjectsAssigments = await ProjectAssigment.find();
+        const allProjectsAssigments = await ProjectAssigment
+        .find()
+        .populate('employeId', 'name')
+        .populate('projectId', 'name')
         res.status(200).json(allProjectsAssigments);
       }
       catch (err){
@@ -128,6 +131,16 @@ server.post('/api/employes', async (req, res) => {
         
       }
     });
+
+    const path = require('path');
+    if (process.env.NODE_ENV === 'production') {
+
+    server.use(express.static(path.join(__dirname, '../client/dist'))); 
+    server.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+    });
+  }
+
 
     server.get('/', (req, res) => { //debug
         res.send("server is running");

@@ -1,10 +1,33 @@
 import { useState } from 'react'
+import { useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
+import axios from 'axios'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [projectAssigments, setprojectAssigments] = useState([])
+  const [sortKey, setSortKey] = useState({key: 'startDate', order: 'decscending'})
+
+  const fetchProjectAssigments = async () => {
+    try{
+      const response = await axios.get('/api/projectassigments');
+      const data = response.data;
+      console.log("data: ", data); //debug
+      setprojectAssigments(data);
+    }
+    catch (err){
+      console.error("Error fetching projectAssigments :", err);
+    }
+  };
+
+  useEffect(() => {
+    fetchProjectAssigments();
+    const refresh = setInterval(fetchProjectAssigments, 30000); 
+    return () => clearInterval(refresh); 
+  },[]);
+
+  const sort =
 
   return (
     <>
