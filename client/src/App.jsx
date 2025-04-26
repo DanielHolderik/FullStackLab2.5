@@ -8,7 +8,7 @@ import { set } from 'mongoose'
 
 function App() {
   const [projectAssigments, setprojectAssigments] = useState([]) //data from backedn
-  const [sortKey, setSortKey] = useState({key: 'startDate', order: 'decscending'}) //
+  const [sortKey, setSortKey] = useState({key: 'startDate', order: 'descending'}) //
 
   const fetchProjectAssigments = async () => {
     try{
@@ -57,18 +57,17 @@ function App() {
         <thead>
           <tr>
             <th onClick={() => handleSort('projectName')}>Project Name</th>
+            <th onClick={() => handleSort('employeName')}>Employe Name</th>
             <th onClick={() => handleSort('startDate')}>Start Date</th>
-            <th onClick={() => handleSort('EmployeName')}>End Date</th>
-            <th onClick={() => handleSort('status')}>Status</th>
           </tr>
         </thead>
         <tbody>
           {sort.map((projectAssigment) => (
             <tr key={projectAssigment._id}>
               <td>{projectAssigment.projectName}</td>
-              <td>{projectAssigment.startDate}</td>
-              <td>{projectAssigment.endDate}</td>
-              <td>{projectAssigment.status}</td>
+              <td>{projectAssigment.employeName}</td>
+              <td>{new Date(projectAssigment.startDate).toLocaleDateString}</td>
+              
             </tr>
           ))}
         </tbody>

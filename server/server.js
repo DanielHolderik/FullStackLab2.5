@@ -118,8 +118,8 @@ server.post('/api/employes', async (req, res) => {
     
       //check if emplyee and project exist
       try{
-        const existingEmploye = await Employe.findOne({employeId: req.body.employeId});
-        const existingProject = await Project.findOne({projectId: req.body.projectId});
+        const existingEmploye = await Employe.findById(req.body.employeId);
+        const existingProject = await Project.findById(req.body.projectId);
         const exist = existingEmploye && existingProject;
     
         if (!exist){
