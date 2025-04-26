@@ -1,10 +1,10 @@
+import React from 'react';
 import { useState } from 'react'
 import { useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import axios from 'axios'
 import './App.css'
-import { set } from 'mongoose'
 
 function App() {
   const [projectAssigments, setprojectAssigments] = useState([]) //data from backedn
@@ -52,8 +52,8 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Project Assigments</h1>
-      <table>
+      <h1>&#10028; Project Assigments &#10028;</h1>
+      <table className="table">
         <thead>
           <tr>
             <th onClick={() => handleSort('projectName')}>Project Name</th>
@@ -66,7 +66,7 @@ function App() {
             <tr key={projectAssigment._id}>
               <td>{projectAssigment.projectName}</td>
               <td>{projectAssigment.employeName}</td>
-              <td>{new Date(projectAssigment.startDate).toLocaleDateString}</td>
+              <td>{new Date(projectAssigment.startDate).toLocaleDateString()}</td>
               
             </tr>
           ))}
